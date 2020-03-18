@@ -29,15 +29,17 @@ view.get('/nombre/:nombre', (req, res, next) => {
   })
 });
 
-view.get('/estreno:peliculas_id', (req, res, next) => {
-   let pId = req.params.peliculas_id; 
-  sequelize.query(`SELECT nombre FROM movies JOIN cines ON cines.peliculas_id = movies.id WHERE cines.peliculas_id = ${pId}`).then(project => {
+view.get('/estreno/:peliculas_id', (req, res, next) => {
+  let pId = req.params.peliculas_id; 
+  sequelize.query(`SELECT nombre FROM movies JOIN cines ON cines.peliculas_id = movies.id WHERE cines.peliculas_id = ${pId}`)
+  .then(project => {
     res.json(project)
-  }).catch(err=>{
+  }).catch(err =>{
     res.statusCode = 400;
     res.json({status: 'KO', message: err})
   })
 });
+
 
 
 module.exports = view;

@@ -30,7 +30,7 @@ view.get('/titulo/:titulo', (req, res, next) => {
 });
 
 view.get('/tit', (req, res, next) => {
-  let _titulo = req.query.titulo;
+  let _titulo = String(req.query.titulo);
   sequelize.query(`SELECT * FROM movies WHERE titulo LIKE '%${_titulo}%'`).then(project => {
     res.json(project)
   }).catch(err =>{
