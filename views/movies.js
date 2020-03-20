@@ -2,6 +2,8 @@ const express = require('express');
 const view = express.Router();
 const Movie = require('../models/movies');
 const sequelize = require('../models/sequelize');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 view.get('/', (req, res, next) => {
   Movie.findAll()
@@ -29,9 +31,11 @@ view.get('/titulo/:titulo', (req, res, next) => {
   })
 });
 
-view.get('/tit', (req, res, next) => {
-  let _titulo = String(req.query.titulo);
-  sequelize.query(`SELECT * FROM movies WHERE titulo LIKE '%${_titulo}%'`).then(project => {
+view.get('/tit/:titulo', (req, res, next) => {
+  let _titulo = String(req.params.titulo);
+  console.log(_titulo)
+  Movie.findAll( {where: { titulo: { [Op.like]: '%'+_titulo+'%' } }})
+  .then(project => {
     res.json(project)
   }).catch(err =>{
     res.statusCode = 400;

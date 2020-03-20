@@ -1,32 +1,45 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./sequelize');
-class Movie extends Sequelize.Model {}
+const faker = require('faker/locale/es');
+const times = require("lodash.times");
 
-Movie.init({
-    titulo:{
+class Empresa extends Sequelize.Model {}
+
+Empresa.init({
+    nombre: {
         type: Sequelize.STRING
     },
-    descripcion:{
+    ciudad: {
         type: Sequelize.STRING
     },
-    actor_id:{
-        type:Sequelize.STRING
-    },
-    cines_estreno:{
+    pais: {
         type: Sequelize.STRING
     }
 },
 {
     sequelize,
-    modelName: 'movie'
+    modelName: 'empresa'
 });
 
-Movie.sync({ force: true }).then(() => {
+Empresa.sync({ force: true })
+.then( () => {
+    Empresa.bulkCreate(
+        times(10, () => ({
+            nombre: faker.company.companyName(),
+            ciudad: faker.address.city(),
+            pais: faker.address.country()
+        })))
+    })
+
+
+
+/* .then(() => {
     Movie.create({
       titulo: 'Bad Boys for life',
       descripcion: 'Miami vuelve a ser el escenario de esta nueva entrega de Dos policías rebeldes. Allí, los detectives Mike Lowrey (Will Smith) y Marcus Burnett (Martin Lawrence) vuelven a hacer de las suyas, y su nueva aventura volverá a estar plagada de acción, bandas, persecuciones de coches y explosiones.',
-      actor_id: ('2,3'),
-      cines_estreno: ('2,3')
+      isEstreno: 1,
+      actor_id: 2,
+      cines_id: 1
     })
     
   }).then( () => {
@@ -34,9 +47,11 @@ Movie.sync({ force: true }).then(() => {
         titulo: '1917',
         descripcion: 'Primera Guerra Mundial. A dos jóvenes soldados británicos les encomiendan una misión imposible: deben entregar un mensaje, en una carrera contrareloj, atravesando territorio enemigo',
         actor_id: ('1,4'),
-        cines_estreno: ('1,2')
+        isEstreno: 0,
+        actor_id: 1,
+        cines_id: 3
       });
   })
-  
+   */
 
   module.exports = Movie

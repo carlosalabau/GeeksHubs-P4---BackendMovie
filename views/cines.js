@@ -20,8 +20,8 @@ view.get('/provincia/:provincia', (req, res, next) => {
 });
 
 view.get('/nombre/:nombre', (req, res, next) => {
-  let nombre = req.params.nombre;
-  Cine.findAll({ where: {nombre: nombre} }).then(project => {
+  let _nombre = req.params.nombre;
+  Cine.findAll({ where: {nombre: _nombre} }).then(project => {
     res.json(project)
   }).catch(err =>{
     res.statusCode = 400;
@@ -31,7 +31,7 @@ view.get('/nombre/:nombre', (req, res, next) => {
 
 view.get('/estreno/:peliculas_id', (req, res, next) => {
   let pId = req.params.peliculas_id; 
-  sequelize.query(`SELECT nombre FROM movies JOIN cines ON cines.peliculas_id = movies.id WHERE cines.peliculas_id = ${pId}`)
+  sequelize.query(`SELECT nombre FROM movies JOIN cines ON cines.peliculas_id = movies.id WHERE cines.peliculas_id = [${pId}]`)
   .then(project => {
     res.json(project)
   }).catch(err =>{
