@@ -1,6 +1,6 @@
 const express = require('express');
 const view = express.Router();
-const Actor = require('../models/clientes');
+const Cliente = require('../models/clientes');
 const sequelize = require('../models/sequelize');
 
 
@@ -19,7 +19,7 @@ view.get('/:id', (req, res, next) => {
     res.json({status: 'KO', message: err})
   })
 });
-view.get('/clientes/:nombre', (req, res, next) => {
+view.get('/nombre/:nombre', (req, res, next) => {
    let _nombre = req.params.nombre; 
   Cliente.findAll({where: {nombre: _nombre}})
   .then(project => {

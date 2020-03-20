@@ -12,6 +12,7 @@
     "express": "~4.16.1",
     "faker": "^4.1.0",
     "http-errors": "~1.6.3",
+    "lodash.times": "^4.3.2",
     "morgan": "~1.9.1",
     "npm-check-updates": "^4.0.4",
     "pg": "^7.18.2",

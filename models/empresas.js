@@ -54,4 +54,4 @@ Empresa.sync({ force: true })
   })
    */
 
-  module.exports = Movie
+  module.exports = Empresa

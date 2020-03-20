@@ -51,4 +51,4 @@ Producto.sync({ force: true })
   });
    */
 
-  module.exports = Actor
+  module.exports = Producto

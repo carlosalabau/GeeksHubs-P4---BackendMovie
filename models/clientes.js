@@ -65,4 +65,4 @@ Cliente.sync({ force: true })
   })
    */
 
-  module.exports = Cine
+  module.exports = Cliente
