@@ -1,29 +1,17 @@
 const express = require('express');
 const view = express.Router();
-const Movie = require('../models/movies');
+const Producto = require('../models/productos');
 const sequelize = require('../models/sequelize');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 view.get('/', (req, res, next) => {
-  Movie.findAll()
-  .then( movies => res.json(movies))
+  Producto.findAll()
+  .then( productos => res.json(productos))
   .catch( err => res.json({msn: err}))
 });
 
 view.get('/:id', (req, res, next) => {
   let _id = req.params.id;
-  Movie.findAll({ where: {id: _id} }).then(project => {
-    res.json(project)
-  }).catch(()=>{
-    res.statusCode = 400;
-    res.json({status: 'KO', message: err})
-  })
-});
-
-view.get('/titulo/:titulo', (req, res, next) => {
-  let _titulo =req.params.titulo;
-  sequelize.query("SELECT * FROM movies WHERE titulo =" + _titulo).then(project => {
+  Producto.findAll({ where: {id: _id} }).then(project => {
     res.json(project)
   }).catch(err =>{
     res.statusCode = 400;
@@ -31,16 +19,27 @@ view.get('/titulo/:titulo', (req, res, next) => {
   })
 });
 
-view.get('/tit/:titulo', (req, res, next) => {
-  let _titulo = String(req.params.titulo);
-  console.log(_titulo)
-  Movie.findAll( {where: { titulo: { [Op.like]: '%'+_titulo+'%' } }})
+view.get('/precio/:precio', (req, res, next) => {
+  let _precio = req.params.precio;
+  Producto.findAll({ where: {precio: _precio} }).then(project => {
+    res.json(project)
+  }).catch(err =>{
+    res.statusCode = 400;
+    res.json({status: 'KO', message: err})
+  })
+});
+
+/* view.get('/estreno/:peliculas_id', (req, res, next) => {
+  let pId = req.params.peliculas_id; 
+  sequelize.query(`SELECT nombre FROM movies JOIN cines ON cines.peliculas_id = movies.id WHERE cines.peliculas_id = [${pId}]`)
   .then(project => {
     res.json(project)
   }).catch(err =>{
     res.statusCode = 400;
     res.json({status: 'KO', message: err})
   })
-});
+}); */
+
+
 
 module.exports = view;

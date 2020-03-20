@@ -24,7 +24,7 @@ Producto.init({
 Producto.sync({ force: true })
 .then( () => {
     Producto.bulkCreate(
-        times(10, () => ({
+        times(20, () => ({
             nombre: faker.commerce.productName(),
             material: faker.commerce.productMaterial(),
             precio: faker.commerce.price()
