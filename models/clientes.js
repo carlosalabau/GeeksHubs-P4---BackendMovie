@@ -7,7 +7,7 @@ const Empresa = require('./empresas');
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
-const Cliente = sequelize.define('Cliente',{
+const Cliente = sequelize.define('cliente',{
     nombre:{
         type: Sequelize.STRING
     },

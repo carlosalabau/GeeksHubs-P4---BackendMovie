@@ -8,7 +8,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-const Producto = sequelize.define('Producto',{
+const Producto = sequelize.define('producto',{
     nombre:{
         type: Sequelize.STRING
     },
@@ -26,11 +26,11 @@ Producto.belongsTo(Cliente);
 Producto.sync({ force: true })
 .then( () => {
     Producto.bulkCreate(
-        times(20, () => ({
+        times(80, () => ({
             nombre: faker.commerce.productName(),
             material: faker.commerce.productMaterial(),
             precio: faker.commerce.price(),
-            ClienteId: getRandomInt(1,30)
+            clienteId: getRandomInt(1,30)
         })))
     })
 
