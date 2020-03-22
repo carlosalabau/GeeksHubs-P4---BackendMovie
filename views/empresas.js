@@ -32,6 +32,7 @@ view.get('/empresa/:nombre', (req, res, next) => {
   })
 });
 
+
 /* view.get('/tit/:titulo', (req, res, next) => {
   let _titulo = String(req.params.titulo);
   console.log(_titulo)

@@ -8,6 +8,7 @@ var empresasRouter = require('./views/empresas');
 var clientesRouter = require('./views/clientes');
 var productosRouter = require('./views/productos');
 
+
 var app = express();
 
 app.use(logger('dev'));
@@ -19,6 +20,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/empresas', empresasRouter);
 app.use('/clientes', clientesRouter);
-app.use('/productos', productosRouter)
+app.use('/productos', productosRouter);
 
 module.exports = app;

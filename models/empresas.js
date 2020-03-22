@@ -17,9 +17,10 @@ Empresa.init({
     }
 },
 {
-    sequelize,
+    sequelize: sequelize,
     modelName: 'empresa'
 });
+
 
 Empresa.sync({ force: true })
 .then( () => {
@@ -32,7 +33,7 @@ Empresa.sync({ force: true })
     })
 
 
-
+    module.exports = Empresa
 /* .then(() => {
     Movie.create({
       titulo: 'Bad Boys for life',
@@ -54,4 +55,3 @@ Empresa.sync({ force: true })
   })
    */
 
-  module.exports = Empresa

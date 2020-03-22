@@ -1,7 +1,6 @@
 const express = require('express');
 const view = express.Router();
 const Cliente = require('../models/clientes');
-const sequelize = require('../models/sequelize');
 
 
 view.get('/', (req, res, next) => {

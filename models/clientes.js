@@ -2,10 +2,12 @@ const Sequelize = require('sequelize');
 const sequelize = require('./sequelize');
 const faker = require('faker/locale/es');
 const times = require("lodash.times");
+const Empresa = require('./empresas');
 
-class Cliente extends Sequelize.Model {}
-
-Cliente.init({
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+const Cliente = sequelize.define('Cliente',{
     nombre:{
         type: Sequelize.STRING
     },
@@ -21,11 +23,10 @@ Cliente.init({
     numero_movil:{
         type:Sequelize.NUMBER
     }
-},
-{
-    sequelize,
-    modelName: 'cliente'
-});
+})
+
+Empresa.hasMany(Cliente);
+Cliente.belongsTo(Empresa);
 
 Cliente.sync({ force: true })
 .then( () => {
@@ -35,11 +36,12 @@ Cliente.sync({ force: true })
             apellidos: faker.name.lastName(),
             puesto: faker.name.jobArea(),
             direccion: faker.address.streetAddress(),
-            numero_movil: faker.phone.phoneNumber()
+            numero_movil: faker.phone.phoneNumber(),
+            empresaId: getRandomInt(1,10)
         })))
-    })
+    });
 
-
+    module.exports = Cliente
 
 
 /* .then(() => {
@@ -65,4 +67,3 @@ Cliente.sync({ force: true })
   })
    */
 
-  module.exports = Cliente

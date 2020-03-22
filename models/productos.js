@@ -2,10 +2,13 @@ const Sequelize = require('sequelize');
 const sequelize = require('./sequelize');
 const faker = require('faker/locale/es');
 const times = require("lodash.times");
+const Cliente = require('./clientes');
 
-class Producto extends Sequelize.Model {}
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
 
-Producto.init({
+const Producto = sequelize.define('Producto',{
     nombre:{
         type: Sequelize.STRING
     },
@@ -13,13 +16,12 @@ Producto.init({
         type: Sequelize.STRING
     },
     precio:{
-        type:Sequelize.DOUBLE
+        type:Sequelize.NUMBER
     }
-},
-{
-    sequelize,
-    modelName: 'producto'
-});
+})
+
+Cliente.hasMany(Producto);
+Producto.belongsTo(Cliente);
 
 Producto.sync({ force: true })
 .then( () => {
@@ -27,11 +29,12 @@ Producto.sync({ force: true })
         times(20, () => ({
             nombre: faker.commerce.productName(),
             material: faker.commerce.productMaterial(),
-            precio: faker.commerce.price()
+            precio: faker.commerce.price(),
+            ClienteId: getRandomInt(1,30)
         })))
     })
 
-
+    module.exports = Producto;
 
 
 
@@ -51,4 +54,4 @@ Producto.sync({ force: true })
   });
    */
 
-  module.exports = Producto
+ 
