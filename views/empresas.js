@@ -1,13 +1,12 @@
 const express = require('express');
 const view = express.Router();
 const Empresa = require('../models/empresas');
-const sequelize = require('../models/sequelize');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 //Listar todas las empresas
 view.get('/', (req, res, next) => {
-  Movie.findAll()
+  Empresa.findAll()
   .then( empresas => res.json(empresas))
   .catch( err => res.json({msn: err}))
 });

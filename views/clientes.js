@@ -5,7 +5,6 @@ const Sequelize = require('sequelize');
 const sequelize = require('../models/sequelize');
 const Op = Sequelize.Op;
 
-
 //Listar todos los clientes
 view.get('/', (req, res, next) => {
   Cliente.findAll()
